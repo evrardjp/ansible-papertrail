@@ -16,13 +16,13 @@
 - name: Installing rsyslog packages
   package:
     name: "{{ item }}"
-  with_items: papertrail_rsyslog_packages
+  with_items: "{{ papertrail_rsyslog_packages }}"
   when: papertrail_logforwarder == "rsyslog"
 
 - name: Installing rsyslog tls support
   package:
     name: "{{ item }}"
-  with_items: papertrail_rsyslog_tls_packages
+  with_items: "{{ papertrail_rsyslog_tls_packages }}"
   when:
     - papertrail_logforwarder == "rsyslog"
     - papertrail_enable_tls | bool

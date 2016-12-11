@@ -3,7 +3,7 @@ language: python
 python: "2.7"
 
 # Use the new container infrastructure
-sudo: false
+sudo: true
 
 # Install ansible
 addons:
@@ -11,6 +11,10 @@ addons:
     packages:
     - python-pip
 
+matrix:
+  include:
+    - env: TEST_SUITE="-e papertrail_enable_tcp=True"  #TCP
+    - env: TEST_SUITE="-e papertrail_enable_tls=True"  #TCP TLS
 install:
   # Install ansible
   - pip install ansible
@@ -24,6 +28,7 @@ install:
 script:
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+  - ansible-playbook tests/test.yml -i tests/inventory -e @tests/required-vars.yml $TEST_SUITE
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
