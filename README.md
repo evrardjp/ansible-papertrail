@@ -3,7 +3,7 @@ Ansible Papertrail Role
 
 Role for configuring papertrail service.
 Currently only rsyslog is supported.
-Confirmed to be working on Debian like systems
+Confirmed to be working on Debian and Redhat like.
 
 Requirements
 -------------------
@@ -18,16 +18,18 @@ Mandatory:
 - `papertrail_destination`
 
 Not editable:
-- `papertrail_rsyslog_packages`
-- `papertrail_rsyslog_tls_packages`
-- `papertrail_rsyslog_service`
+- `papertrail_rsyslog_packages`: name of the rsyslog packages required for your distribution.
+- `papertrail_rsyslog_tls_packages`: name of the tls packages required for your distribution.
+- `papertrail_rsyslog_service`: name of the rsyslog service under your distribution.
+- `papertrail_ca_url`: Static variable to the CA download url. Used when `papertrail_enable_tls` is set to `True`.
+- `papertrail_ca_checksum`: Static variable holding the checksum of the ca file. Used when `papertrail_enable_tls` is set to `True`.
 
 Editable:
-- `papertrail_logforwarder`
-- `papertrail_enable_tls`
-- `papertrail_enable_tcp`
+- `papertrail_logforwarder`: The forwarder used in papertrail. Only rsyslog is supported right now.
+- `papertrail_enable_tls`: Switch this to `True` to enable tcp+tls log forwarding. Default is UDP usage.
+- `papertrail_enable_tcp`: If you switch this to `True`, the log forwarding will be done in TCP instead of UDP. No TLS used in that case.
 - `papertrail_loglevel`
-- `papertrail_rsyslog_config`
+- `papertrail_rsyslog_config`: This is a list of name+value items that are inserted in the rsyslog configuration.
 
 
 Defaults
