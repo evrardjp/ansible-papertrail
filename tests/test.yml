@@ -5,20 +5,25 @@
     - ansible-papertrail
   post_tasks:
     - stat:
-        path: "ls -Fla /usr/{{ (ansible_userspace_bits == 64 and ansible_os_family == 'RedHat') | ternary('lib64','lib') }}/rsyslog/lmnsd_gtls.so"
+        path: "/usr/{{ (ansible_userspace_bits == '64' and ansible_os_family == 'RedHat') | ternary('lib64','lib') }}/rsyslog/lmnsd_gtls.so"
       register: tls_module
-      when:
-        - papertrail_logforwarder == 'rsyslog'
-        - papertrail_enable_tls | bool
-    - shell: cat /etc/rsyslog.d/70-papertrail.conf | grep DefaultNetstreamDriverCAFile
-      register: DefaultNetstreamDriverCAFile
       when:
         - papertrail_logforwarder == 'rsyslog'
         - papertrail_enable_tls | bool
     - assert:
         that:
           - tls_module.stat.exists
-          - "DefaultNetstreamDriverCAFile in DefaultNetstreamDriverCAFile.stdout"
+      when:
+        - papertrail_logforwarder == 'rsyslog'
+        - papertrail_enable_tls | bool
+    - shell: cat /etc/rsyslog.d/70-papertrail.conf | grep DefaultNetstreamDriverCAFile
+      register: ca_file_in_papertrailconf
+      when:
+        - papertrail_logforwarder == 'rsyslog'
+        - papertrail_enable_tls | bool
+    - assert:
+        that:
+          - "'DefaultNetstreamDriverCAFile' in ca_file_in_papertrailconf.stdout"
       when:
         - papertrail_logforwarder == 'rsyslog'
         - papertrail_enable_tls | bool
