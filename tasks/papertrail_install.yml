@@ -14,13 +14,13 @@
 # limitations under the License.
 
 - name: Installing rsyslog packages
-  apt:
+  package:
     name: "{{ item }}"
   with_items: papertrail_rsyslog_packages
   when: papertrail_logforwarder == "rsyslog"
 
 - name: Installing rsyslog tls support
-  apt:
+  package:
     name: "{{ item }}"
   with_items: papertrail_rsyslog_tls_packages
   when:
@@ -31,4 +31,15 @@
   service:
     name: "{{ papertrail_rsyslog_service }}"
     enabled: yes
-  when: papertrail_logforwarder == "rsyslog"
+  when:
+    - papertrail_logforwarder == "rsyslog"
+    - ansible_service_mgr != "systemd"
+
+- name: rsyslogd daemon should be enabled
+  systemd:
+    daemon_reload: yes
+    name: "{{ papertrail_rsyslog_service }}"
+    enabled: yes
+  when:
+    - papertrail_logforwarder == "rsyslog"
+    - ansible_service_mgr == "systemd"
