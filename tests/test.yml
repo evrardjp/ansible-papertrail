@@ -5,7 +5,7 @@
     - ansible-papertrail
   post_tasks:
     - stat:
-        path: "ls -la /usr/{{ (ansible_userspace_bits == 64) | ternary('lib64','lib') }}/rsyslog/lmnsd_gtls.so"
+        path: "ls -Fla /usr/{{ (ansible_userspace_bits == 64 and ansible_os_family == 'RedHat') | ternary('lib64','lib') }}/rsyslog/lmnsd_gtls.so"
       register: tls_module
       when:
         - papertrail_logforwarder == 'rsyslog'
