@@ -17,6 +17,7 @@ papertrail_logforwarder: rsyslog
 papertrail_enable_tls: False
 papertrail_enable_tcp: "{% if papertrail_enable_tls | bool %}True{% else %}False{% endif %}"
 papertrail_loglevel: "*.*"
+papertrail_verify_ca_checksum: False
 
 # Rsyslog Defaults
 papertrail_rsyslog_config:

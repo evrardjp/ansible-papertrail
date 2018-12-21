@@ -32,6 +32,7 @@ Editable:
 - `papertrail_enable_tcp`: If you switch this to `True`, the log forwarding will be done in TCP instead of UDP. No TLS used in that case.
 - `papertrail_loglevel`
 - `papertrail_rsyslog_config`: This is a list of name+value items that are inserted in the rsyslog configuration.
+- `papertrail_verify_ca_checksum`: Toggles whether verifying the MD5 checksum of the pem file.
 
 
 Defaults
@@ -42,6 +43,7 @@ Defaults
 - Switching `papertrail_enable_tls` to true will magically turn `papertrail_enable_tcp`, unless explicitly told not to (don't do that!).
 - `papertrail_loglevel` default is `*.*` (send everything)
 - `papertrail_rsyslog_config` has sane defaults defined, please check defaults/main.yml
+- `papertrail_verify_ca_checksum` is by default to False.
 
 
 Example Playbook

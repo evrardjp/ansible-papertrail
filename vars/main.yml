@@ -14,4 +14,4 @@
 # limitations under the License.
 
 papertrail_ca_url: "https://papertrailapp.com/tools/papertrail-bundle.pem"
-papertrail_ca_checksum: "md5:ba3b40a34ec33ac0869fa5b17a0c80fc"
+papertrail_ca_checksum: "md5:2c43548519379c083d60dd9e84a1b724"

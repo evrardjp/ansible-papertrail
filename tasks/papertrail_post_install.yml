@@ -20,7 +20,7 @@
     owner: root
     group: root
     backup: no
-    checksum: "{{ papertrail_ca_checksum }}"
+    checksum: "{{ (papertrail_verify_ca_checksum | bool) | ternary(papertrail_ca_checksum, omit) }}"
   when: papertrail_enable_tls | bool
 
 - name: Configure papertrail rsyslogd config
