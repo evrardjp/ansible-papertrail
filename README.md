@@ -1,7 +1,14 @@
 Ansible Papertrail Role
 =======================
 
-[![Build Status](https://travis-ci.org/evrardjp/ansible-papertrail.svg?branch=master)](https://travis-ci.org/evrardjp/ansible-papertrail)
+Important note
+--------------
+
+This role isn't getting any traction, I am therefore archiving it.
+Anyone can contribute back, or fork it, if this needs to survive.
+
+Introduction
+------------
 
 Role for configuring papertrail service.
 Currently only rsyslog is supported.
